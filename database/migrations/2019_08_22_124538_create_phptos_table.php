@@ -26,6 +26,6 @@ class CreatePhptosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('phptos');
+        Schema::drop('photos');
     }
 }
