@@ -10,12 +10,20 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 
 /**
  * @property mixed id
  */
 class AdminUsersController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -161,5 +169,16 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+
+
+        $user = User::findOrfail($id); //gjen perdoruesin
+
+        unlink(public_path() . $user->photo->file);//fshin foton nga dosja images
+
+        $user->delete();//fshin perdoruesin
+
+        Session::flash('deleted_user', 'The user has been deleted');//mesazhi per kofirmim fshirje
+
+        return redirect('/admin/users');
     }
 }

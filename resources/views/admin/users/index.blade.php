@@ -5,7 +5,11 @@
 @section('content')
 
     <h1>User</h1>
-
+<div class="bg-danger">
+    @if(Session::has('deleted_user'))
+    <p>{{session('deleted_user')}}</p>
+    @endif
+</div>
     <table class="table">
         <thead>
           <tr>
@@ -31,7 +35,7 @@
             <td>{{$user->role->name}}</td>
             <td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
               <td>{{$user->created_at->diffForHumans()}}</td>
-              <td>{{$user->updated_at}}</td>
+              <td>{{$user->updated_at->diffForHumans()}}</td>
           </tr>
             @endforeach
         @endif
